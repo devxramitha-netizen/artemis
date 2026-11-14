@@ -1,3 +1,9 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 2 optimizations:
+# - [MEDIUM] Add concurrency group to "ruby.yml"
+# - [LOW] Explicitly set fail-fast for large matrix job "mri" (468 combinations)
+# Estimated savings: ~4 min/run
+#
 name: build
 
 on:
@@ -5,6 +11,10 @@ on:
   push:
   pull_request:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   mri:
     strategy:
